@@ -36,6 +36,13 @@
 ###### &ensp;&ensp;[3.7.2 格式化输出](#anchor372)
 ###### &ensp;&ensp;[3.7.3 文件输入与输出](#anchor373)
 
+##### [3.8 控制流程](#anchor38)
+###### &ensp;&ensp;[3.8.1 块作用域](#anchor381)
+###### &ensp;&ensp;[3.8.2 条件语句](#anchor382)
+###### &ensp;&ensp;[3.8.3 循环](#anchor383)
+###### &ensp;&ensp;[3.8.4 确定循环](#anchor384)
+###### &ensp;&ensp;[3.8.5 多重选择：switch语句](#anchor385)
+
 ### <span id="anchor31">3.1 一个简单的Java应用程序</span>
 
 **类名标准的命名规范**：
@@ -625,20 +632,26 @@ System.out.printf ("%s %tB %<te, %<tY","Due date:" , new Date());
 
 ##### 1.文件读取
 如果想要对文件进行读取，就需要一个用File对象构造一个Scanner对象
+```java
 Scanner in = new Scanner(Paths.get(myfile.txt),"UTF-8");
-如果文件中包含反斜杠，就需要在反斜杠前再加一个额外的反斜杠
+```
+**注意**：如果文件中包含反斜杠，就需要在反斜杠前再加一个额外的反斜杠
 
 ##### 2.文件写入
 写入文件需要构造一个PrintWriter对象。在构造器中，只需要提供文件名：
+```java
+//如果文件不存在，创建该文件
 PrintWriter out = new PrintWriter("myfile.txt","UTF-8");
-如果文件不存在，创建该文件。可以像输出到System.out一样使用print、printf及println命令
-覆盖式添加，而非追加。
+```
+
+可以像输出到System.out一样使用print、printf及println命令**覆盖式**添加
+```java
 PrintWriter out = new PrintWriter("myfile.txt","UTF-8");
 out.print("nihao");
 out.close();
-
+```
 >注释：
-当指定一个相对文件名时， 例如， “myfile.txt”，“mydirectory/myfile.txt” 或“ ../myfile.txt”，文件位于Java虚拟机启动路径的相对位置。
+当指定一个相对文件名时， 例如， “myfile.txt”，“mydirectory/myfile.txt” 或“ ../myfile.txt”，文件位于**Java虚拟机启动路径**的相对位置。
 如果在命令行下启动程序，启动路径就是命令解释器的当前路径。
 如果使用IDE，启动路径将由IDE控制，可以使用如下方式找到路径的位置：
 String dir = System.getProperty("myfile.txt");
@@ -653,8 +666,10 @@ public static void main(String[] args) throws IOException
 }
 ```
 
-当采用命令行方式启动一个程序时， 可以利用Shell 的重定向语法将任意文件关联到System.in 和System.out:
+当采用命令行方式启动一个程序时， 可以利用Shell的重定向语法将任意文件关联到System.in 和System.out
+```java
 java MyProg < myfile.txt > output.txt
+```
 这样， 就不必担心处理IOException 异常了。
 
 ```java
@@ -675,3 +690,131 @@ API java.nio.file.Paths 7
 static Path get(String pathname)
 	根据给定的路径名构造一个Path。
 ```
+
+#### <span id="anchor38">3.8 控制流程</span>
+
+#### <span id="anchor381">3.8.1 块作用域</span>
+
+**块（block）**：即复合语句，是指由一对大括号括起来的若干条简单的Java语句。
+块确定了变量的作用域，一个块可以嵌套在另一个块中，但不能在嵌套的两个块中声明同名的变量。
+
+#### <span id="anchor382">3.8.2 条件语句</span>
+
+在Java中，条件语句的格式如下所示，**else与最邻近的 If 构成一组**
+```java
+if(condition) statement
+if(condition) statement1 else statement2
+if(condition) statement1 else if statement2 else statement3
+```
+#### <span id="anchor383">3.8.3 循环</span>
+
+当条件为true时，while循环执行一个语句块，一般格式如下：
+```java
+//while循环语句首先检测循环条件，循环体中的代码有可能不被执行
+while(condition) statement
+```
+
+
+如果希望循环体至少执行一次，应该使用do/while，格式如下：
+```java
+//这种循环语句先执行语句，再检查循环条件
+do statement while(condition);
+```
+
+
+#### <span id="anchor384">3.8.4 确定循环</span>
+
+for循环语句是支持迭代的一种通用结构，利用每次迭代后更新的计数器或类似的变量来控制迭代次数。
+
+for循环语句是while循环的一种简化形式
+
+#### <span id="anchor385">3.8.5 多重选择：switch语句</span>
+
+在处理多个选项时，使用`if/else`结构会有些笨拙且效率不高，此时可以使用`switch`语句
+switch语句将从与选项值相匹配的case标签处执行直到遇到break语句，或者执行到switch语句的结束处为止。
+如果没有想匹配的case标签，而有default语句，就执行这个子句。
+```java
+Scanner in = new Scanner(System.in);
+int choice = in.nextInt();
+switch(choice)
+{
+    case 1:
+    statements;
+    break;
+    case 2:
+    sattements;
+    break;
+    default:
+    statements;
+    break;
+}
+```
+**case标签的类型：**
+* 类型为char、byte、short或int的常量表达式；
+* 枚举常量；
+* 从Java SE7开始，支持字符串字面量。
+
+#### <span id="anchor386">3.8.6 中断控制流程语句</span>
+
+尽管Java的设计者将goto作为保留字，但实际并没有打算使用它。
+Java设计者在Java语言中增加了一条带标签的break，以支持这种程序设计风格。
+
+##### 1、带标签的break语句
+
+用于跳出多重嵌套的循环语句，标签必须放在希望跳出的最外层循环之前，并且必须紧跟一个冒号。
+```java
+Scanner in = new Scanner(System.in);
+int n;
+read_data:
+while(..)
+{
+    for(...)
+    {
+        System.out.print("Enter a number >=0: ");
+        n = in.nextInt();
+        if(n<0)
+            break read_data; 
+    }
+}
+//跳出标签后立即执行如下的语句
+if(n < 0)
+{
+    ...
+}
+```
+
+可以将标签应用到任何语句中，比如if语句或块语句中
+```java
+label:
+{
+    ...
+    if(condition) break label;
+    ...
+}
+//jump here when the break statement executes
+```
+##### 2、continue语句
+continue语句将控制转移到最内层循环的首部。例如：
+```java
+//如果n<0，则continue语句越过当前循环体的剩余部分，立即跳转到循环首部
+Scanner in = new Scanner(System.in);
+while(sum < goal)
+{
+    System.out.print("Enter a number: ");
+    n = in.nextInt();
+    if(n<0) continue;
+    sum += n;
+}
+```
+如果将continue语句用于for循环中，就可以跳转到for循环的“更新部分”
+```java
+//如果n<0,则continue语句跳到count++语句
+for(count =1; count<=100;count++)
+{
+    System.out.print("Enter a number, -1 to quit: ");
+    n = in.nextInt();
+    if(n<0) continue;
+    sum += n;
+}
+```
+还有一种带标签的continue，将跳转到与标签匹配的循环首部。
