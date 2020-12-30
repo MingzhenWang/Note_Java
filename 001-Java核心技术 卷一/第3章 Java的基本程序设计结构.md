@@ -42,6 +42,7 @@
 ###### &ensp;&ensp;[3.8.3 循环](#anchor383)
 ###### &ensp;&ensp;[3.8.4 确定循环](#anchor384)
 ###### &ensp;&ensp;[3.8.5 多重选择：switch语句](#anchor385)
+###### &ensp;&ensp;[3.8.6 中断控制流程语句](#anchor386)
 
 ### <span id="anchor31">3.1 一个简单的Java应用程序</span>
 
@@ -818,3 +819,49 @@ for(count =1; count<=100;count++)
 }
 ```
 还有一种带标签的continue，将跳转到与标签匹配的循环首部。
+
+#### <span id="anchor39">3.9 大数值</span>
+
+如果基本的整数和浮点数精度不能够满足需求，可以使用java.math中包含的两个类：`BigInteger`和`BigDecimal`，这两个类可以处理包含任意长度数字序列的数值。
+
+BigInteger类实现了任意精度的整数运算，BigDecimal类实现了任意精度的浮点数运算。
+
+
+```java
+//使用静态的valueOf方法可以将普通的数值转换为大数值
+BigInteger a = BigInteger.valueOf(100);
+
+//不能使用算术运算符处理大数值，需要使用类中的add和multiply方法
+BigInteger c = a.add(b);
+BigInteger d = c.multipy(b.add(BigInteger.valueOf(2)));//d=c*(b+2)
+
+```
+
+**注释**：Java没有提供运算符重载功能，java设计者为字符串的连接重载了+运算符，但没有重载其他运算符，也没有给Java程序员在自己的类中重载运算符的机会。
+
+```java
+API java.math.BigInteger 1.1
+	BigInteger add(BigInteger other)
+	BigInteger subtract(BigInteger other)
+	BigInteger multiply(BigInteger other)
+	BigInteger divide(BigInteger other)
+	BigInteger mod(BigInteger other)
+		返回这个大整数与另一个大整数other的和、差、积、商以及余数
+	int compareTo(BigInteger other)
+		如果这个大整数与另一个大整数other相等，返回0；如果这个大整数小于另一个大整数other，返回负数；否则返回正数
+	static BigInteger valueOf(long x)
+		返回值等于x的大整数
+
+API java.math.BigDecimal 1.1
+	BigDecimal add(BigDecimal other)
+	BigDecimal subtract(BigDecimal other)
+	BigDecimal multiply(BigDecimal other)
+	BigDecimal divide(BigDecimal other RoundingMode mode) 5.0
+		返回值这个大实数与另一个大实数other的和、差、积、商。
+		要想计算商，必须给出舍入方式（round mode），RoundingMode.HALF_UP是四舍五入方式，其他方式请查看API文档
+	int compareTo(BigDecimal other)
+		如果这个大实数与另一个大实数other相等，返回0；如果这个大实数小于另一个大实数other，返回负数；否则返回正数
+	static BigDecimal valueOf(long x)
+	static BigDecimal valueOf(long x, int scale)
+		返回值为x或x/10scale的一个大实数。
+```
