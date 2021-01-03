@@ -43,7 +43,7 @@
 ###### &ensp;&ensp;[3.8.4 确定循环](#anchor384)
 ###### &ensp;&ensp;[3.8.5 多重选择：switch语句](#anchor385)
 ###### &ensp;&ensp;[3.8.6 中断控制流程语句](#anchor386)
-
+###### &ensp;&ensp;[3.9 大数值](#anchor39)
 ### <span id="anchor31">3.1 一个简单的Java应用程序</span>
 
 **类名标准的命名规范**：
@@ -865,3 +865,9 @@ API java.math.BigDecimal 1.1
 	static BigDecimal valueOf(long x, int scale)
 		返回值为x或x/10scale的一个大实数。
 ```
+
+#### <span id="anchor310">3.10 数组</span>
+
+数组是一种数据结构，用来存储同一类型值的集合，通过整数下标可以访问到数组中的每一个值。
+
+声明
