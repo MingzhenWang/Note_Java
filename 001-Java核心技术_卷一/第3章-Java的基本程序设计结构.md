@@ -37,8 +37,6 @@
   - [3.7 输入输出](#37-%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA)
     - [3.7.1 读取输入](#371-%E8%AF%BB%E5%8F%96%E8%BE%93%E5%85%A5)
     - [3.7.3 文件输入与输出](#373-%E6%96%87%E4%BB%B6%E8%BE%93%E5%85%A5%E4%B8%8E%E8%BE%93%E5%87%BA)
-      - [1.文件读取](#1%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96)
-      - [2.文件写入](#2%E6%96%87%E4%BB%B6%E5%86%99%E5%85%A5)
     - [3.8 控制流程](#38-%E6%8E%A7%E5%88%B6%E6%B5%81%E7%A8%8B)
     - [3.8.1 块作用域](#381-%E5%9D%97%E4%BD%9C%E7%94%A8%E5%9F%9F)
     - [3.8.2 条件语句](#382-%E6%9D%A1%E4%BB%B6%E8%AF%AD%E5%8F%A5)
@@ -46,8 +44,8 @@
     - [3.8.4 确定循环](#384-%E7%A1%AE%E5%AE%9A%E5%BE%AA%E7%8E%AF)
     - [3.8.5 多重选择：switch语句](#385-%E5%A4%9A%E9%87%8D%E9%80%89%E6%8B%A9switch%E8%AF%AD%E5%8F%A5)
     - [3.8.6 中断控制流程语句](#386-%E4%B8%AD%E6%96%AD%E6%8E%A7%E5%88%B6%E6%B5%81%E7%A8%8B%E8%AF%AD%E5%8F%A5)
-      - [1、带标签的break语句](#1%E5%B8%A6%E6%A0%87%E7%AD%BE%E7%9A%84break%E8%AF%AD%E5%8F%A5)
-      - [2、continue语句](#2continue%E8%AF%AD%E5%8F%A5)
+    - [3.9 大数值](#39-%E5%A4%A7%E6%95%B0%E5%80%BC)
+    - [3.10 数组](#310-%E6%95%B0%E7%BB%84)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -641,14 +639,14 @@ System.out.printf ("%s %tB %<te, %<tY","Due date:" , new Date());
 
 #### 3.7.3 文件输入与输出
 
-##### 1.文件读取
+**1.文件读取**
 如果想要对文件进行读取，就需要一个用File对象构造一个Scanner对象
 ```java
 Scanner in = new Scanner(Paths.get(myfile.txt),"UTF-8");
 ```
 **注意**：如果文件中包含反斜杠，就需要在反斜杠前再加一个额外的反斜杠
 
-##### 2.文件写入
+**2.文件写入**
 写入文件需要构造一个PrintWriter对象。在构造器中，只需要提供文件名：
 ```java
 //如果文件不存在，创建该文件
@@ -770,7 +768,7 @@ switch(choice)
 尽管Java的设计者将goto作为保留字，但实际并没有打算使用它。
 Java设计者在Java语言中增加了一条带标签的break，以支持这种程序设计风格。
 
-##### 1、带标签的break语句
+**1、带标签的break语句**
 
 用于跳出多重嵌套的循环语句，标签必须放在希望跳出的最外层循环之前，并且必须紧跟一个冒号。
 ```java
@@ -804,7 +802,7 @@ label:
 }
 //jump here when the break statement executes
 ```
-##### 2、continue语句
+**2、continue语句**
 continue语句将控制转移到最内层循环的首部。例如：
 ```java
 //如果n<0，则continue语句越过当前循环体的剩余部分，立即跳转到循环首部
@@ -830,7 +828,7 @@ for(count =1; count<=100;count++)
 ```
 还有一种带标签的continue，将跳转到与标签匹配的循环首部。
 
-#### <span id="anchor39">3.9 大数值</span>
+#### 3.9 大数值
 
 如果基本的整数和浮点数精度不能够满足需求，可以使用java.math中包含的两个类：`BigInteger`和`BigDecimal`，这两个类可以处理包含任意长度数字序列的数值。
 
@@ -876,7 +874,7 @@ API java.math.BigDecimal 1.1
 		返回值为x或x/10scale的一个大实数。
 ```
 
-#### <span id="anchor310">3.10 数组</span>
+#### 3.10 数组
 
 数组是一种数据结构，用来存储同一类型值的集合，通过整数下标可以访问到数组中的每一个值。
 
