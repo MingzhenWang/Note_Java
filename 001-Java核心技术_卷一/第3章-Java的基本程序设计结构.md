@@ -52,9 +52,58 @@
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## 第3章 Java的基本程序设计结构
+<<<<<<< HEAD:001-Java核心技术_卷一/第3章-Java的基本程序设计结构.md
 
 
 ### 3.1 一个简单的Java应用程序
+=======
+#### 目录
+##### [3.1 一个简单的Java应用程序](#anchor31)
+##### [3.2 注释](#anchor32)
+##### [3.3 数据类型](#anchor33)
+###### &ensp;&ensp;[3.3.1 整型](#anchor331)
+###### &ensp;&ensp;[3.3.2 浮点类型](#anchor332)
+###### &ensp;&ensp;[3.3.3 char类型](#anchor333)
+###### &ensp;&ensp;[3.3.4 Unicode和char类型](#anchor334)
+###### &ensp;&ensp;[3.3.5 boolean类型](#anchor335)
+##### [3.4 变量](#anchor34)
+###### &ensp;&ensp;[3.4.1 变量初始化](#anchor341)
+###### &ensp;&ensp;[3.4.2 常量](#anchor342)
+##### [3.5 运算符](#anchor35)
+###### &ensp;&ensp;[3.5.1 数学函数与常量](#anchor351)
+###### &ensp;&ensp;[3.5.2 数值类型之间的转换](#anchor352)
+###### &ensp;&ensp;[3.5.3 强制类型转换](#anchor353)
+###### &ensp;&ensp;[3.5.4 结合赋值和运算符](#anchor354)
+###### &ensp;&ensp;[3.5.5 自增与自减运算符](#anchor355)
+###### &ensp;&ensp;[3.5.6 关系和boolean运算符](#anchor356)
+###### &ensp;&ensp;[3.5.7 位运算符](#anchor357)
+###### &ensp;&ensp;[3.5.8 括号与运算符级别](#anchor358)
+###### &ensp;&ensp;[3.5.9 枚举类型](#anchor359)
+##### [3.6 字符串](#anchor36)
+###### &ensp;&ensp;[3.6.1 子串](#anchor361)
+###### &ensp;&ensp;[3.6.2 拼接](#anchor362)
+###### &ensp;&ensp;[3.6.3 不可变字符串](#anchor363)
+###### &ensp;&ensp;[3.6.4 检测字符串是否相等](#anchor364)
+###### &ensp;&ensp;[3.6.5 空串与Null串](#anchor365)
+###### &ensp;&ensp;[3.6.6 码点与代码单元](#anchor366)
+###### &ensp;&ensp;[3.6.7 String API](#anchor367)
+###### &ensp;&ensp;[3.6.8 阅读联机文档](#anchor368)
+###### &ensp;&ensp;[3.6.9 构建字符串](#anchor369)
+##### [3.7 输入输出](#anchor37)
+###### &ensp;&ensp;[3.7.1 读取输入](#anchor371)
+###### &ensp;&ensp;[3.7.2 格式化输出](#anchor372)
+###### &ensp;&ensp;[3.7.3 文件输入与输出](#anchor373)
+
+##### [3.8 控制流程](#anchor38)
+###### &ensp;&ensp;[3.8.1 块作用域](#anchor381)
+###### &ensp;&ensp;[3.8.2 条件语句](#anchor382)
+###### &ensp;&ensp;[3.8.3 循环](#anchor383)
+###### &ensp;&ensp;[3.8.4 确定循环](#anchor384)
+###### &ensp;&ensp;[3.8.5 多重选择：switch语句](#anchor385)
+###### &ensp;&ensp;[3.8.6 中断控制流程语句](#anchor386)
+###### &ensp;&ensp;[3.9 大数值](#anchor39)
+### <span id="anchor31">3.1 一个简单的Java应用程序</span>
+>>>>>>> 47436dc0a9f706812003e4c0e0127fb23fa84214:001-Java核心技术 卷一/第3章 Java的基本程序设计结构.md
 
 **类名标准的命名规范**：
 * 类名是以大写字母开头
@@ -64,8 +113,8 @@
 
 ### 3.2 注释
 
-Java中有三种注释，// 和 /* */（不能嵌套）
-第三种注释以/**开头、以*/结束，可以用来自动地生成文档，如下所示：
+Java中有三种注释，`//` 和 `/* */`（不能嵌套）
+第三种注释以`/*`开头、以`*/`结束，可以用来自动地生成文档，如下所示：
 ```java
 /**
 * This is the first sample 
@@ -87,10 +136,10 @@ Java中一共有8种基本类型：
 用于表示没有小数部分的数值，允许是负数，Java提供了4种整型
 |类型|存储需求|取值范围|
 -|-|-
-**int**|4字节|2147483648 ~ 2147483647（正好超过20亿）
-**short**|2字节|32768 ~ 32767
-**long**|8字节|9223372036854775808 ~ 9223372036854775807
-**byte**|1字节|128 ~ 127，2的8次方，正负分隔
+**int**|4字节|-2147483648 ~ 2147483647（正好超过20亿）
+**short**|2字节|-32768 ~ 32767
+**long**|8字节|-9223372036854775808 ~ 9223372036854775807
+**byte**|1字节|-128 ~ 127，2的8次方，正负分隔
 * 长整型有一个后缀L或l(如4000000000L)
 * 十六进制有一个前缀0x或0X
 * 八进制有一个前缀0
@@ -829,3 +878,55 @@ for(count =1; count<=100;count++)
 }
 ```
 还有一种带标签的continue，将跳转到与标签匹配的循环首部。
+
+#### <span id="anchor39">3.9 大数值</span>
+
+如果基本的整数和浮点数精度不能够满足需求，可以使用java.math中包含的两个类：`BigInteger`和`BigDecimal`，这两个类可以处理包含任意长度数字序列的数值。
+
+BigInteger类实现了任意精度的整数运算，BigDecimal类实现了任意精度的浮点数运算。
+
+
+```java
+//使用静态的valueOf方法可以将普通的数值转换为大数值
+BigInteger a = BigInteger.valueOf(100);
+
+//不能使用算术运算符处理大数值，需要使用类中的add和multiply方法
+BigInteger c = a.add(b);
+BigInteger d = c.multipy(b.add(BigInteger.valueOf(2)));//d=c*(b+2)
+
+```
+
+**注释**：Java没有提供运算符重载功能，java设计者为字符串的连接重载了+运算符，但没有重载其他运算符，也没有给Java程序员在自己的类中重载运算符的机会。
+
+```java
+API java.math.BigInteger 1.1
+	BigInteger add(BigInteger other)
+	BigInteger subtract(BigInteger other)
+	BigInteger multiply(BigInteger other)
+	BigInteger divide(BigInteger other)
+	BigInteger mod(BigInteger other)
+		返回这个大整数与另一个大整数other的和、差、积、商以及余数
+	int compareTo(BigInteger other)
+		如果这个大整数与另一个大整数other相等，返回0；如果这个大整数小于另一个大整数other，返回负数；否则返回正数
+	static BigInteger valueOf(long x)
+		返回值等于x的大整数
+
+API java.math.BigDecimal 1.1
+	BigDecimal add(BigDecimal other)
+	BigDecimal subtract(BigDecimal other)
+	BigDecimal multiply(BigDecimal other)
+	BigDecimal divide(BigDecimal other RoundingMode mode) 5.0
+		返回值这个大实数与另一个大实数other的和、差、积、商。
+		要想计算商，必须给出舍入方式（round mode），RoundingMode.HALF_UP是四舍五入方式，其他方式请查看API文档
+	int compareTo(BigDecimal other)
+		如果这个大实数与另一个大实数other相等，返回0；如果这个大实数小于另一个大实数other，返回负数；否则返回正数
+	static BigDecimal valueOf(long x)
+	static BigDecimal valueOf(long x, int scale)
+		返回值为x或x/10scale的一个大实数。
+```
+
+#### <span id="anchor310">3.10 数组</span>
+
+数组是一种数据结构，用来存储同一类型值的集合，通过整数下标可以访问到数组中的每一个值。
+
+声明
