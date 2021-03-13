@@ -52,58 +52,9 @@
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## 第3章 Java的基本程序设计结构
-<<<<<<< HEAD:001-Java核心技术_卷一/第3章-Java的基本程序设计结构.md
-
 
 ### 3.1 一个简单的Java应用程序
-=======
-#### 目录
-##### [3.1 一个简单的Java应用程序](#anchor31)
-##### [3.2 注释](#anchor32)
-##### [3.3 数据类型](#anchor33)
-###### &ensp;&ensp;[3.3.1 整型](#anchor331)
-###### &ensp;&ensp;[3.3.2 浮点类型](#anchor332)
-###### &ensp;&ensp;[3.3.3 char类型](#anchor333)
-###### &ensp;&ensp;[3.3.4 Unicode和char类型](#anchor334)
-###### &ensp;&ensp;[3.3.5 boolean类型](#anchor335)
-##### [3.4 变量](#anchor34)
-###### &ensp;&ensp;[3.4.1 变量初始化](#anchor341)
-###### &ensp;&ensp;[3.4.2 常量](#anchor342)
-##### [3.5 运算符](#anchor35)
-###### &ensp;&ensp;[3.5.1 数学函数与常量](#anchor351)
-###### &ensp;&ensp;[3.5.2 数值类型之间的转换](#anchor352)
-###### &ensp;&ensp;[3.5.3 强制类型转换](#anchor353)
-###### &ensp;&ensp;[3.5.4 结合赋值和运算符](#anchor354)
-###### &ensp;&ensp;[3.5.5 自增与自减运算符](#anchor355)
-###### &ensp;&ensp;[3.5.6 关系和boolean运算符](#anchor356)
-###### &ensp;&ensp;[3.5.7 位运算符](#anchor357)
-###### &ensp;&ensp;[3.5.8 括号与运算符级别](#anchor358)
-###### &ensp;&ensp;[3.5.9 枚举类型](#anchor359)
-##### [3.6 字符串](#anchor36)
-###### &ensp;&ensp;[3.6.1 子串](#anchor361)
-###### &ensp;&ensp;[3.6.2 拼接](#anchor362)
-###### &ensp;&ensp;[3.6.3 不可变字符串](#anchor363)
-###### &ensp;&ensp;[3.6.4 检测字符串是否相等](#anchor364)
-###### &ensp;&ensp;[3.6.5 空串与Null串](#anchor365)
-###### &ensp;&ensp;[3.6.6 码点与代码单元](#anchor366)
-###### &ensp;&ensp;[3.6.7 String API](#anchor367)
-###### &ensp;&ensp;[3.6.8 阅读联机文档](#anchor368)
-###### &ensp;&ensp;[3.6.9 构建字符串](#anchor369)
-##### [3.7 输入输出](#anchor37)
-###### &ensp;&ensp;[3.7.1 读取输入](#anchor371)
-###### &ensp;&ensp;[3.7.2 格式化输出](#anchor372)
-###### &ensp;&ensp;[3.7.3 文件输入与输出](#anchor373)
 
-##### [3.8 控制流程](#anchor38)
-###### &ensp;&ensp;[3.8.1 块作用域](#anchor381)
-###### &ensp;&ensp;[3.8.2 条件语句](#anchor382)
-###### &ensp;&ensp;[3.8.3 循环](#anchor383)
-###### &ensp;&ensp;[3.8.4 确定循环](#anchor384)
-###### &ensp;&ensp;[3.8.5 多重选择：switch语句](#anchor385)
-###### &ensp;&ensp;[3.8.6 中断控制流程语句](#anchor386)
-###### &ensp;&ensp;[3.9 大数值](#anchor39)
-### <span id="anchor31">3.1 一个简单的Java应用程序</span>
->>>>>>> 47436dc0a9f706812003e4c0e0127fb23fa84214:001-Java核心技术 卷一/第3章 Java的基本程序设计结构.md
 
 **类名标准的命名规范**：
 * 类名是以大写字母开头
