@@ -1,3 +1,14 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [第1章 Java程序设计概述](#%E7%AC%AC1%E7%AB%A0-java%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E6%A6%82%E8%BF%B0)
+  - [1.1 Java程序设计平台](#11-java%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%B9%B3%E5%8F%B0)
+  - [1.2 Java“白皮书”的关键术语](#12-java%E7%99%BD%E7%9A%AE%E4%B9%A6%E7%9A%84%E5%85%B3%E9%94%AE%E6%9C%AF%E8%AF%AD)
+  - [1.3 Java的发展史](#13-java%E7%9A%84%E5%8F%91%E5%B1%95%E5%8F%B2)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## 第1章 Java程序设计概述
 
 ### 1.1 Java程序设计平台
