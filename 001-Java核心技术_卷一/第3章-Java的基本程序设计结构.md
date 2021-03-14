@@ -700,7 +700,7 @@ static Path get(String pathname)
 	根据给定的路径名构造一个Path。
 ```
 
-#### 3.8 控制流程
+### 3.8 控制流程
 
 #### 3.8.1 块作用域
 
@@ -828,7 +828,7 @@ for(count =1; count<=100;count++)
 ```
 还有一种带标签的continue，将跳转到与标签匹配的循环首部。
 
-#### 3.9 大数值
+### 3.9 大数值
 
 如果基本的整数和浮点数精度不能够满足需求，可以使用java.math中包含的两个类：`BigInteger`和`BigDecimal`，这两个类可以处理包含任意长度数字序列的数值。
 
@@ -874,8 +874,181 @@ API java.math.BigDecimal 1.1
 		返回值为x或x/10scale的一个大实数。
 ```
 
-#### 3.10 数组
+### 3.10 数组
 
-数组是一种数据结构，用来存储同一类型值的集合，通过整数下标可以访问到数组中的每一个值。
+数组是一种数据结构，用来存储同一类型值的集合，通过一个整型下标可以访问数组中的每一个值。
 
-声明
+
+在声明数组变量时，需要指出**数组类型**（数据元素类型紧跟[]）和**数组变量**的名字：
+```java
+//声明整型数组
+int[] a;//int a[];
+//初始化创建数组
+int[] a = new int[100];//创建一个可以存储100个整数的数组，数组的下标从0-99
+```
+**初始值**
+* 创建一个数字数组，所有元素初始化为0；
+* 创建一个Boolean数组，元素初始化为false；
+* 对象数组的元素初始化为null值，表示这些数组还未存放任何对象（String）
+
+数组一旦创建，大小不可变，如果需要在运行过程中扩展数组的大小，应该使用另一种数据结构--数组列表（array list）
+获取数组中元素的个数：array.length
+
+
+#### 3.10.1 for each循环
+Java中有一种很强的循环结构，可以用来依次处理数组中的每个元素（其他类型的元素集合亦可），而不用指定下标。
+这种增强型的for循环格式如下：
+for(variable: collection) statement
+
+定义一个变量用于暂存集合中的每一个元素，并执行相应的语句。
+collection必须是一个数组或者是一个实现了Iterable接口的类对象（例如ArrayList）
+//打印数组a的每一个元素
+for(int element:a)
+{
+    System.out.println(element);
+}
+
+提示：有个更简单的打印数组中所有值的方法，调用Arrays类的toString方法，返回一个包含数组元素的字符串，这些元素被放置在括号内并用逗号分隔，例如 “[1,2,3,4]”
+
+
+#### 3.10.2 数组初始化以及匿名数组
+在Java中，提供了一种创建数组对象并赋予初始值的简化书写形式：
+int[] smallPrimes = {2,3,4,5,7,13};
+
+甚至还可以初始化一个匿名的数组：
+new int[] {13,17,23,29,31,37}
+
+这种表示法将创建一个新数组，并利用括号中提供的值进行初始化，数组的大小就是初始值的个数。
+使用这种语法形式可以在不创建新变量的情况下重新初始化一个数组。例如：
+smallPrimes = new int[] {13,17,23,29,31,37};
+
+简写形式如下：
+int anonymous = {13,17,23,29,31,37};
+smallPrimes = anonymous;
+
+注释：在Java中吗，数组长度允许为0。例如结果为数组的方法，结果为空，可以用长度为0的数组表示：
+new elementType[0]//长度为0与null不同
+
+#### 3.10.3 数组拷贝
+在Java中，允许将一个数组变量拷贝给另一个数组变量，这时，两个变量将引用同一个数组。
+
+如果希望将一个数组的所有值拷贝到一个新的数组中，就要使用Arrays类的copyOf方法：
+int[] copiedLuckyNumbers = Arrays.copyOf(luckyNumbers,luckyNumbers.length);
+第二个参数是新数组的长度。这个方法通常用来增加数组的大小：
+luckyNumbers = Arrays.copyOf(luckyNumbers,2*luckyNumbers.lenght);
+
+如果数组元素是数值型，多余的元素将被赋值0；
+如果数组元素是布尔型，则将赋值false；
+相反，如果长度小于原始数组的长度，则只拷贝最前面的数据元素。
+
+#### 3.10.4 命令行参数
+每一个Java程序都有一个带String args[]参数的main方法。
+这个参数表明main方法将接受一个字符串数组，也就是命令行参数。
+
+	• 在启动Java应用程序时可以一次性地向应用程序中传递0~多个参数----命令行参数
+	• 命令行参数使用格式： java ClassName  lisa  "bily"  "Mr Brown“
+	• 由参数args接收   空格将参数分开  若参数包含空格，用双引号引起来
+
+#### 3.10.5 数组排序
+要想对数值型数组进行排序，可以使用Arrays类中的sort方法，
+这个方法使用了优化的快速排序算法，对于大多数集合来说效率比较高
+int[] a = new int[1000];
+...
+Arrays.sort(a);
+
+Math.random()方法将返回一个0到1之间（含0不含1）的随机浮点数，用整数n乘以这个浮点数，就可以得到0到n-1之间的一个随机数。
+
+API java.util.Arrays 1.2
+	• static String toString(type[] a) 5.0
+		○ 返回包含a中数据元素的字符串，这些数据元素被放在括号内，并用逗号分隔。
+		○ 参数：a，类型为int、long、short、char、byte、boolean、float或double的数组
+	• static type copyOf(type[] a, int length) 6
+	• static type copyOfRange(type[] a,int start,int end) 6
+		○ 返回与a类型相同的一个数组，其长度为length或者end-start，数组元素为a的值
+		○ 参数：a，类型为int、long、short、char、byte、boolean、float或double的数组
+		start，起始下表，包含这个值
+		end，终止下标（不包含这个值）。这个值可能大于length，这种情况下，结果为0或false；
+		length，拷贝的数据元素长度。如果length值大于a.length，结果为0或false;否则，数组中只有前面length个数据元素的拷贝值。
+	• static int binarySearch(type[] a, type v)
+	• static int binarySearch(type[] a, int start, int end, type v) 6
+		○ 采用二分查找值v。如果查找成功，则返回相应的下标值；否则返回一个负数值r。-r-1是为保持a有序v应插入的位置。
+		○ 参数：a，类型为int、long、short、char、byte、boolean、float或double的有序数组
+			start，起始下标（包含这个值）。
+			end，终止下标（不包含这个值）。
+			v，同a的数据元素类型相同的值。
+	• static void fill(type[] a, type v)
+		○ 将数组的所有数据元素值设置为v。
+		○ 参数：a，类型为int、long、short、char、byte、boolean、float或double的数组。
+			v，与a数据元素类型相同的一个值。
+	• static boolean equals(type[] a, type[] b)
+		○ 如果两个数组大小相同，并且下标相同的元素都对应相等，返回true。
+		○ 参数：a、b，类型为int类型为int、long、short、char、byte、boolean、float或double的数组。
+
+
+#### 3.10.6 多维数组
+多维数组将使用多个下标访问数组元素，它适用于表示表格或更加复杂的排列形式。
+声明二维数组：double[][] balances;
+初始化二维数组：balances = new double[NYEARS][NRATES];
+
+若知道数组元素，可以使用简化的形式对多维数组进行初始化：
+int[][] magicSquare = 
+{
+    {16,3,2,13},
+    {5,10,11,8},
+    {9,6,7,12},
+    {4,15,11,1}
+};
+数组初始化后，可以利用两个方括号访问每个元素，例如，balances[i][j]
+
+注释：for each循环语句不能自动处理二维数组的每一个元素。它按照行（一维数组）进行处理。
+要想访问二维数组的所有元素，需要使用两个嵌套的循环：
+for(double[] row:a)
+{
+    for(double value:row)
+    {
+        do something with value
+    }
+}
+
+提示：要快速打印一个二维数组的数据元素列表，可以调用：
+System.out.printlb(Arrays.deepToString(a));
+输出格式为：
+[[16,3,2,13],[5,10,11,8],[9,6,7,12],[4,15,14,1]]
+
+#### 3.10.7 不规则数组
+
+Java实际上没有多维数组，只有一维数组。多维数组被解释为“数组的数组”。
+
+
+在前面的示例中，balances数组实际上是一个包含10个元素的数组，而每个元素又是一个由6个浮点数组成的数组。
+
+
+
+表达式balances[i]引用第i个子数组，也就是二维表的第i行。它本身也是一个数组，balances[i][j]引用和这个数组的第j项。
+
+由于可以单独地存取数组的某一行，所以可以让两行交换。
+double[] temp = balances[i];
+balances[i] = balances[i+1];
+balances[i+1] = temp;
+
+还可以方便地构造出一个“不规则“数组，即数组的每一行有不同的长度。
+
+要创建一个不规则数组，首先需要分配一个具有所含行数的数组。
+int[][] odds = new int[NMAX+1][];
+
+接下来，分配这些行：
+for(int n = 0;n <= NMAX;n++)
+{
+    odds[n] = new int[n+1];
+}
+
+在分配了数组之后，假定没有超出边界，就可以采用通常的方式访问其中的元素。
+for(int n = 0;n < odds.length;n++)
+{
+    for(int k = 0;k < odds[n].length;k++)
+    {
+        //compute lotteryOdds
+        ...
+        odds[n][k] = lotteryOdds;
+    }
+}
