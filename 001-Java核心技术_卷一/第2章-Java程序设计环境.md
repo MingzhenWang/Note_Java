@@ -12,20 +12,19 @@
 ## 第2章 Java程序设计环境
 
 ### 2.1 安装Java开发工具包
-（1）安装JDK
-需要到Oracle官网下载需要的JDK安装包
-具体术语如下所示
+#### 1. 安装JDK
+需要到Oracle官网下载需要的JDK安装包，具体术语如下所示
 ![](/001-Java核心技术_卷一/Pictures/2001.png)
 
 可以同时在一个电脑上安装多个版本的JDK，具体教程如下所示：
 https://app.yinxiang.com/fx/b666f764-67c1-4845-8913-fc248b8c04c3
 
-（2）安装库源文件和文档
+#### 2. 安装库源文件和文档
 
 **库源文件**在JDK中以一个压缩文件src.zip的形式发布，必须解压后才能访问源代码，操作如下：
-（1）确保JDK已安装，且jdk/bin目录在执行路径中
-（2）在主目录（jdk目录下）新建javasrc文件夹
-（3）将主目录文件夹下的src.zip文件解压缩到javasrc目录
+* 确保JDK已安装，且jdk/bin目录在执行路径中
+* 在主目录（jdk目录下）新建javasrc文件夹
+* 将主目录文件夹下的src.zip文件解压缩到javasrc目录
 ```cmd
 jar xvf jdk/javasrc
 ```
