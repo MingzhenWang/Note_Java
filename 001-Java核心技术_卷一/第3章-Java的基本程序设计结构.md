@@ -446,14 +446,14 @@ String str = new String(codePoints,0,codePoints.length);
 #### 3.6.7 String API
 Java的String类包含了50多种方法，绝大多数都很有用，下列的API注释汇总了一部分最常用的方法
 
-java.lang.string 1.0，如果某个方法是在这个版本之后添加的， 就会给出一个单独的版本号。
+* java.lang.string 1.0，如果某个方法是在这个版本之后添加的， 就会给出一个单独的版本号。
 ```java
 char charAt(int index)
-	返回给定的代码单元。出兑对底层的代码单元感兴趣，否则不需要调用这个方法
+	返回给定的代码单元。除非对底层的代码单元感兴趣，否则不需要调用这个方法
 int codePointAt(int index) 5.0
 	返回从给定位置开始的码点
-int offsetByCodePoints(int startlndex, int cpCount) 5.0
-	返回从startlndex 代码点开始， 位移cpCount 后的码点索引*
+int offsetByCodePoints(int startIndex, int cpCount) 5.0
+	返回从startIndex 代码点开始， 位移cpCount 后的码点索引*
 int compareTo(String other)
 	按照字典顺序， 如果字符串位于other 之前， 返回一个负数；如果字符串位于other 之后，返回一个正数； 如果两个字符串相等，返回0。
 IntStream codePoints() 8
@@ -468,24 +468,24 @@ boolean startsWith(String prefix)
 boolean endsWith(String suffix)
 	如果字符串以suffix 开头或结尾，则返回true。
 int indexOf (String str)
-int indexOf (String str,int fromlndex)
+int indexOf (String str,int fromIndex)
 int indexOf (int cp)
 int indexOf (int cp, int fromlndex)
 	返回与字符串str或代码点cp 匹配的第一个子串的开始位置。这个位置从索引0或fromlndex开始计算。如果在原始始串中不存在str，返回-1。
 int lastIndexOf (String str)
-int lastIndexOf (String str,int fromlndex)
-int lastindexOf (int cp)
-int lastindexOf (int cp,int fromlndex)
+int lastIndexOf (String str,int fromIndex)
+int lastIndexOf (int cp)
+int lastIndexOf (int cp,int fromIndex)
 	返回与字符串str或代码点cp匹配的最后一个子串的开始位置。这个位置从原始串尾端或fromlndex 开始计算。
 int length()
 	返回字符串的长度。
-int codePointCount (int startlndex,int endlndex) 5.0
+int codePointCount (int startIndex,int endIndex) 5.0
 	返回startlndex和endludex-l 之间的代码点数量。没有配成对的代用字符将计入代码点。
 String replace(CharSequence oldString,CharSequence newString)
 	返回一个新字符串。这个字符串用newString 代替原始字符串中所有的oldString。可以用String或StringBuilder对象作为CharSequence参数。
-String substring(int beginlndex)
-String substring(int beginlndex,int endlndex)
-	返回一个新字符串。这个字符串包含原始字符串中从beginlndex到串尾或endlndex-1的所有代码单元。
+String substring(int beginIndex)
+String substring(int beginIndex,int endIndex)
+	返回一个新字符串。这个字符串包含原始字符串中从beginIndex到串尾或endIndex-1的所有代码单元。
 String toLowerCase()
 String toUpperCase()
 	返回一个新字符串。这个字符串将原始字符串中的大写字母改为小写，或者将原始字符串中的所有小写字母改成了大写字母。
@@ -506,7 +506,7 @@ String join(CharSequence delimiter,CharSequence . .. elements) 8
 
 有时候，需要由较短的字符串构建字符串，例如，按键或来自文件中的单词。
 * 采用字符串连接的方式效率较低，每次连接字符串，都会构建一个新的String对象，**耗时且浪费空间**。
-使用**StringBuilder类**可以避免这个问题，用法如下：
+* 使用**StringBuilder类**可以避免这个问题，用法如下：
 ```java
 StringBuilder builder = new StringBuilder();//首先建立一个空的字符串构建器
 builder.append(ch);//附加一个字符
