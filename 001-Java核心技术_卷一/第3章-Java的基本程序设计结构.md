@@ -547,14 +547,12 @@ String toString()
 
 ### 3.7 输入输出
 #### 3.7.1 读取输入
-调用**System.out.println**，即可打印输出到“标准输出流”（控制台窗口）
-读取“标准输入流”System.in麻烦一些，首先需要构造一个Scanner对象，并与“标准输入流”System.in关联。
-```java
-Scanner in = new Scanner(System.in);
-```
-之后可以使用Scanner类的各种方法实现输入操作。
+* 调用**System.out.println**，即可打印输出到“标准输出流”（控制台窗口）
+* 如何读取“标准输入流”System.in
+  * 首先需要构造一个Scanner对象，并与“标准输入流”System.in关联。
+  * 之后可以使用Scanner类的各种方法实现输入操作。
 
-Scanner类定义在java.util包中，当使用的类不是定义在基本java.lang包中时，一定要使用import指示字将相应的包加载进来。
+>Scanner类定义在java.util包中，当使用的类不是定义在基本java.lang包中时，一定要使用import指示字将相应的包加载进来。
 ```java
 Import java.util.*
 
@@ -571,8 +569,10 @@ Console cons = System.console();
 String username = cons.readLine("User name: ")；
 char[] passwd = cons.readPassword("Password:");
 ```
-为了安全起见， 返回的密码存放在一维字符数组中， 而不是字符串中。在对密码进行处理之后， 应该马上用一个填充值覆盖数组元素（数组处理将在3.10 节介绍）。
-采用Console 对象处理输入不如采用Scanner 方便。每次只能读取一行输入， 而没有能够读取一个单词或一个数值的方法。
+* 为了安全起见， 返回的密码存放在一维字符数组中， 而不是字符串中。
+* 在对密码进行处理之后， 应该马上用一个填充值覆盖数组元素（数组处理将在3.10 节介绍）。
+* 采用Console 对象处理输入不如采用Scanner 方便。每次只能读取一行输入， 而没有能够读取一个单词或一个数值的方法。
+
 ```java
 API-java.util.Scanner 5.0
 
@@ -582,7 +582,7 @@ String nextLine()
 	读取输入的下一行内容。
 String next()
 	读取输入的下一个单词（以空格作为分隔符)。
-int nextlnt()
+int nextInt()
 double nextDouble()
 	读取并转换下一个表示整数或浮点数的字符序列。
 boolean hasNext()
@@ -600,7 +600,7 @@ API-java.io.Console 6
 
 static char[] readPassword(String prompt, Object...args)
 static String readLine(String prompt, Object...args)
-	显示字符串prompt 并且读取用户输入，直到输入行结束。args 参数可以用来提供输人格式。有关这部分内容将在下一节中介绍。
+	显示字符串prompt 并且读取用户输入，直到输入行结束。args 参数可以用来提供输入格式。有关这部分内容将在下一节中介绍。
 ```
 
 #### 3.7.2 格式化输出
@@ -612,16 +612,17 @@ Java SE 5.0 沿用了C语言函数库中的printf方法，例如：
 System.out.printf("%8.2f", x);  //可以用8个字符的宽度和小数点后两个字符的精度打印x。
 ```
 
-解释：
-1、每一个以%字符开始的格式说明符都用相应的参数替换。
-2、格式说明符尾部的转换符将指示被格式化的数值类型：f表示浮点数，s表示字符串、d表示十进制整数。表3-5列出了所有转换符。
-3、还可以给出控制格式化输出的各种标志，表3-6给出了所有的标志，可以使用多个分隔符拼在一起。
+**解释：**
+1. 每一个以%字符开始的格式说明符都用相应的参数替换。
+2. 格式说明符尾部的转换符将指示被格式化的数值类型：f表示浮点数，s表示字符串、d表示十进制整数。表3-5列出了所有转换符。
+3. 还可以给出控制格式化输出的各种标志，表3-6给出了所有的标志，可以使用多个分隔符拼在一起。
 
 ![](/001-Java核心技术_卷一/Pictures/3701.png)
 
-注释：可以使用s转换符格式化任意的对象。
+>注释：可以使用s转换符格式化任意的对象。
 对于实现了Formattable几口的对象都将调用formatTo方法，否则将调用toString方法，它可以将对象转换为字符串
-可以使用静态的String.format 方法创建一个格式化的字符串， 而不打印输出：
+
+* 可以使用静态的String.format 方法创建一个格式化的字符串， 而不打印输出：
 ```java
 String message = String.format ("Hello, %s. Next year , you'll be %d", name , age);
 ```
@@ -629,10 +630,9 @@ String message = String.format ("Hello, %s. Next year , you'll be %d", name , ag
 ![](/001-Java核心技术_卷一/Pictures/3702.png)
 
 
-基于完整性的考虑，下面简略地介绍printf方法中日期与时间的格式化选项。
-在新代码中，应该使用卷II中第6章介绍的java.time包的方法。旧的代码中，会有Date类和相关的格式化选项。
-
-格式包括两个字母，以t开始，以表3-7中的任意字母结束。例如：
+**基于完整性的考虑，下面简略地介绍printf方法中日期与时间的格式化选项。**
+* **在新代码中，应该使用卷II中第6章介绍的java.time包的方法**。旧的代码中，会有Date类和相关的格式化选项。
+* 格式包括两个字母，**以`t`开始**，以表3-7中的任意字母结束。例如：
 ```java
 System.out.printf("%tc", new Date());//打印格式： Mon Feb 09 18:05:19 PST 2015
 ```
@@ -643,19 +643,23 @@ System.out.printf("%tc", new Date());//打印格式： Mon Feb 09 18:05:19 PST 2
 
 从表3-7 可以看到， 某些格式只给出了指定日期的部分信息。例如，只有日期或月份。如果需要多次对日期操作才能实现对每一部分进行格式化，这种方式太繁琐。
 
-为此，可以采用一个格式化的字符串指出要被格式化的参数索引。索引必须紧跟在`%`后面， 并以`$`终止。
-例如，
+* 可以采用一个格式化的字符串指出要被格式化的参数索引。
+* 索引必须紧跟在`%`后面， 并以`$`终止。
+
 ```java
-System.out.printf("%1$s %2$tB %2$te, %2$tY","Due date:", new Date())；
-```
+System.out.printf("%1$s %2$tB %2$te, %2$tY","Due date:", new Date());
+
 打印
 Due date：February 9,2005
+```
 
-还可以选择使用`<` 标志。它指示前面格式说明中的参数将被再次使用。也就是说，下列语句将产生与前面语句同样的输出结果：
+
+* 还可以选择使用`<` 标志。它指示前面格式说明中的参数将被再次使用。也就是说，下列语句将产生与前面语句同样的输出结果：
 ```java
 System.out.printf ("%s %tB %<te, %<tY","Due date:" , new Date());
 ```
-注意：参数索引从1开始，而不是从0开始。%1$ 对第一个参数格式化。
+>注意：**参数索引从1开始，而不是从0开始**。%1$ 对第一个参数格式化。
+
 语法图如下：
 
 ![](/001-Java核心技术_卷一/Pictures/3705.png)
@@ -667,7 +671,7 @@ System.out.printf ("%s %tB %<te, %<tY","Due date:" , new Date());
 ```java
 Scanner in = new Scanner(Paths.get(myfile.txt),"UTF-8");
 ```
-**注意**：如果文件中包含反斜杠，就需要在反斜杠前再加一个额外的反斜杠
+>**注意**：如果文件中包含反斜杠，就需要在反斜杠前再加一个额外的反斜杠
 
 **2.文件写入**
 写入文件需要构造一个PrintWriter对象。在构造器中，只需要提供文件名：
@@ -682,15 +686,18 @@ PrintWriter out = new PrintWriter("myfile.txt","UTF-8");
 out.print("nihao");
 out.close();
 ```
->注释：
-当指定一个相对文件名时， 例如， “myfile.txt”，“mydirectory/myfile.txt” 或“ ../myfile.txt”，文件位于**Java虚拟机启动路径**的相对位置。
-如果在命令行下启动程序，启动路径就是命令解释器的当前路径。
-如果使用IDE，启动路径将由IDE控制，可以使用如下方式找到路径的位置：
-String dir = System.getProperty("myfile.txt");
+>当指定一个相对文件名时， 例如， “myfile.txt”，“mydirectory/myfile.txt” 或“ ../myfile.txt”，文件位于**Java虚拟机启动路径**的相对位置。
 
-如果用一个不存在的文件构造一个Scanner, 或者用一个不能被创建的文件名构造一个PrintWriter,那么就会发生异常。
-Java 编译器认为这些异常比“ 被零除” 异常更严重。现在，应该告知编译器： 已经知道有可能出现“ 输入/输出” 异常。
-这需要在main 方法中用throws 子句标记， 如下所示：
+>如果在命令行下启动程序，启动路径就是命令解释器的当前路径。
+
+>如果使用IDE，启动路径将由IDE控制，可以使用如下方式找到路径的位置：
+```java
+String dir = System.getProperty("myfile.txt");
+```
+
+* 如果用一个不存在的文件构造一个Scanner, 或者用一个不能被创建的文件名构造一个PrintWriter,那么就会发生异常。
+* Java 编译器认为这些异常比“ 被零除” 异常更严重。现在，应该告知编译器： 已经知道有可能出现“ 输入/输出” 异常。
+* 这需要在main 方法中用throws 子句标记， 如下所示：
 ```java
 public static void main(String[] args) throws IOException
 {
@@ -698,11 +705,11 @@ public static void main(String[] args) throws IOException
 }
 ```
 
-当采用命令行方式启动一个程序时， 可以利用Shell的重定向语法将任意文件关联到System.in 和System.out
+* 当采用命令行方式启动一个程序时， 可以利用Shell的重定向语法将任意文件关联到System.in 和System.out，这样， 就不必担心处理IOException 异常了。
 ```java
 java MyProg < myfile.txt > output.txt
 ```
-这样， 就不必担心处理IOException 异常了。
+
 
 ```java
 API java.util.Scanner 5.0
