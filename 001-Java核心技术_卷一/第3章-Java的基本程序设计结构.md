@@ -866,9 +866,10 @@ for(count =1; count<=100;count++)
 
 ### 3.9 大数值
 
-如果基本的整数和浮点数精度不能够满足需求，可以使用java.math中包含的两个类：`BigInteger`和`BigDecimal`，这两个类可以处理包含任意长度数字序列的数值。
+如果基本的整数和浮点数精度不能够满足需求，可以使用**java.math**中包含的两个类：* `BigInteger`和`BigDecimal`，这两个类可以处理包含任意长度数字序列的数值。
 
-BigInteger类实现了任意精度的整数运算，BigDecimal类实现了任意精度的浮点数运算。
+* **BigInteger类**实现了**任意精度的整数运算**
+* **BigDecimal类**实现了**任意精度的浮点数运算**
 
 
 ```java
@@ -881,7 +882,7 @@ BigInteger d = c.multipy(b.add(BigInteger.valueOf(2)));//d=c*(b+2)
 
 ```
 
-**注释**：Java没有提供运算符重载功能，java设计者为字符串的连接重载了+运算符，但没有重载其他运算符，也没有给Java程序员在自己的类中重载运算符的机会。
+>**注释**：Java没有提供运算符重载功能，java设计者**为字符串的连接重载了+运算符**，但没有重载其他运算符，也没有给Java程序员在自己的类中重载运算符的机会。
 
 ```java
 API java.math.BigInteger 1.1
@@ -907,7 +908,7 @@ API java.math.BigDecimal 1.1
 		如果这个大实数与另一个大实数other相等，返回0；如果这个大实数小于另一个大实数other，返回负数；否则返回正数
 	static BigDecimal valueOf(long x)
 	static BigDecimal valueOf(long x, int scale)
-		返回值为x或x/10scale的一个大实数。
+		返回值为x或x/10scale的一个大实数。sacle用于指定小数点后位数
 ```
 
 ### 3.10 数组
