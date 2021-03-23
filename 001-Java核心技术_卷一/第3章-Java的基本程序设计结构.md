@@ -908,8 +908,13 @@ API java.math.BigDecimal 1.1
 		如果这个大实数与另一个大实数other相等，返回0；如果这个大实数小于另一个大实数other，返回负数；否则返回正数
 	static BigDecimal valueOf(long x)
 	static BigDecimal valueOf(long x, int scale)
-		返回值为x或x/10scale的一个大实数。sacle用于指定小数点后位数
+		返回值为x或x/10<sup>scale</sup>的一个大实数。sacle用于指定小数点后位数
 ```
+
+
+> 上标用<sub>上标</sub>，下标用 <sup>下标</sup>
+> 如果被包含在代码块中，则无法显示上标和下标
+
 
 ### 3.10 数组
 
