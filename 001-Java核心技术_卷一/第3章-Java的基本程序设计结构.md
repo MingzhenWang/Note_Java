@@ -776,19 +776,19 @@ for循环语句是支持迭代的一种通用结构，利用每次迭代后更�
 * switch语句将从与选项值相匹配的case标签处执行直到遇到break语句，或者执行到switch语句的结束处为止。
 * 如果没有想匹配的case标签，而有default语句，就执行这个子句。
 ```java
-Scanner in = new Scanner(System.in);
-int choice = in.nextInt();
+Scanner in = new Scanner(System.in);
+int choice = in.nextInt();
 switch(choice)
 {
-    case 1:
-    statements;
-    break;
-    case 2:
-    sattements;
-    break;
-    default:
-    statements;
-    break;
+    case 1:
+    statements;
+    break;
+    case 2:
+    sattements;
+    break;
+    default:
+    statements;
+    break;
 }
 ```
 **case标签的类型：**
@@ -806,23 +806,23 @@ Java设计者在Java语言中增加了一条带标签的break，以支持这种�
 * 用于**跳出多重嵌套**的循环语句
 * **标签**必须放在希望跳出的**最外层循环之前**，并且必须**紧跟一个冒号**。
 ```java
-Scanner in = new Scanner(System.in);
-int n;
+Scanner in = new Scanner(System.in);
+int n;
 read_data:
 while(..)
 {
-    for(...)
-    {
-        System.out.print("Enter a number >=0: ");
-        n = in.nextInt();
-        if(n<0)
-            break read_data; 
-    }
+    for(...)
+    {
+        System.out.print("Enter a number >=0: ");
+        n = in.nextInt();
+        if(n<0)
+            break read_data; 
+    }
 }
 //跳出标签后立即执行如下的语句
-if(n < 0)
+if(n < 0)
 {
-    ...
+    ...
 }
 ```
 
@@ -830,34 +830,34 @@ if(n < 0)
 ```java
 label:
 {
-    ...
-    if(condition) break label;
-    ...
+    ...
+    if(condition) break label;
+    ...
 }
-//jump here when the break statement executes
+//jump here when the break statement executes
 ```
 **2、continue语句**
 continue语句将控制转移到最内层循环的首部。例如：
 ```java
 //如果n<0，则continue语句越过当前循环体的剩余部分，立即跳转到循环首部
-Scanner in = new Scanner(System.in);
-while(sum < goal)
+Scanner in = new Scanner(System.in);
+while(sum < goal)
 {
-    System.out.print("Enter a number: ");
-    n = in.nextInt();
-    if(n<0) continue;
-    sum += n;
+    System.out.print("Enter a number: ");
+    n = in.nextInt();
+    if(n<0) continue;
+    sum += n;
 }
 ```
 如果将continue语句用于for循环中，就可以跳转到for循环的“更新部分”
 ```java
 //如果n<0,则continue语句跳到count++语句
-for(count =1; count<=100;count++)
+for(count =1; count<=100;count++)
 {
-    System.out.print("Enter a number, -1 to quit: ");
-    n = in.nextInt();
-    if(n<0) continue;
-    sum += n;
+    System.out.print("Enter a number, -1 to quit: ");
+    n = in.nextInt();
+    if(n<0) continue;
+    sum += n;
 }
 ```
 **还有一种带标签的continue，将跳转到与标签匹配的循环首部**。
@@ -874,40 +874,40 @@ for(count =1; count<=100;count++)
 
 ```java
 //使用静态的valueOf方法可以将普通的数值转换为大数值
-BigInteger a = BigInteger.valueOf(100);
+BigInteger a = BigInteger.valueOf(100);
 
 //不能使用算术运算符处理大数值，需要使用类中的add和multiply方法
-BigInteger c = a.add(b);
-BigInteger d = c.multipy(b.add(BigInteger.valueOf(2)));//d=c*(b+2)
+BigInteger c = a.add(b);
+BigInteger d = c.multipy(b.add(BigInteger.valueOf(2)));//d=c*(b+2)
 
 ```
 
 >**注释**：Java没有提供运算符重载功能，java设计者**为字符串的连接重载了+运算符**，但没有重载其他运算符，也没有给Java程序员在自己的类中重载运算符的机会。
 
 ```java
-API java.math.BigInteger 1.1
-	BigInteger add(BigInteger other)
-	BigInteger subtract(BigInteger other)
-	BigInteger multiply(BigInteger other)
-	BigInteger divide(BigInteger other)
-	BigInteger mod(BigInteger other)
+API java.math.BigInteger 1.1
+	BigInteger add(BigInteger other)
+	BigInteger subtract(BigInteger other)
+	BigInteger multiply(BigInteger other)
+	BigInteger divide(BigInteger other)
+	BigInteger mod(BigInteger other)
 		返回这个大整数与另一个大整数other的和、差、积、商以及余数
-	int compareTo(BigInteger other)
+	int compareTo(BigInteger other)
 		如果这个大整数与另一个大整数other相等，返回0；如果这个大整数小于另一个大整数other，返回负数；否则返回正数
-	static BigInteger valueOf(long x)
+	static BigInteger valueOf(long x)
 		返回值等于x的大整数
 
-API java.math.BigDecimal 1.1
-	BigDecimal add(BigDecimal other)
-	BigDecimal subtract(BigDecimal other)
-	BigDecimal multiply(BigDecimal other)
-	BigDecimal divide(BigDecimal other RoundingMode mode) 5.0
+API java.math.BigDecimal 1.1
+	BigDecimal add(BigDecimal other)
+	BigDecimal subtract(BigDecimal other)
+	BigDecimal multiply(BigDecimal other)
+	BigDecimal divide(BigDecimal other RoundingMode mode) 5.0
 		返回值这个大实数与另一个大实数other的和、差、积、商。
-		要想计算商，必须给出舍入方式（round mode），RoundingMode.HALF_UP是四舍五入方式，其他方式请查看API文档
-	int compareTo(BigDecimal other)
+		要想计算商，必须给出舍入方式（round mode），RoundingMode.HALF_UP是四舍五入方式，其他方式请查看API文档
+	int compareTo(BigDecimal other)
 		如果这个大实数与另一个大实数other相等，返回0；如果这个大实数小于另一个大实数other，返回负数；否则返回正数
-	static BigDecimal valueOf(long x)
-	static BigDecimal valueOf(long x, int scale)
+	static BigDecimal valueOf(long x)
+	static BigDecimal valueOf(long x, int scale)
 		返回值为x或x/10<sup>scale</sup>的一个大实数。sacle用于指定小数点后位数
 ```
 
@@ -945,9 +945,9 @@ int[] a = new int[100];//创建一个可以存储100个整数的数组，数组�
   * collection：必须是一个数组或者是一个实现了Iterable接口的类对象（例如ArrayList）
 ```java
 //打印数组a的每一个元素
-for(int element:a)
+for(int element:a)
 {
-    System.out.println(element);
+    System.out.println(element);
 }
 ```
 
@@ -956,21 +956,21 @@ for(int element:a)
 
 #### 3.10.2 数组初始化以及匿名数组
 * Java提供了一种创建数组对象并赋予初始值的简化书写形式：
-`int[] smallPrimes = {2,3,4,5,7,13};`
+`int[] smallPrimes = {2,3,4,5,7,13};`
 
 * 甚至还可以**初始化一个匿名的数组**：
-`new int[] {13,17,23,29,31,37}`
+`new int[] {13,17,23,29,31,37}`
   * 这种表示法将创建一个新数组，并利用括号中提供的值进行初始化，数组的大小就是初始值的个数。
   * 可以在不创建新变量的情况下**重新初始化一个数组**。例如：
-`smallPrimes = new int[] {13,17,23,29,31,37};`
+`smallPrimes = new int[] {13,17,23,29,31,37};`
 
 **下列语句可以简化为上文的样式：**
 ```java
-int anonymous = {13,17,23,29,31,37};
-smallPrimes = anonymous;
+int anonymous = {13,17,23,29,31,37};
+smallPrimes = anonymous;
 ```
 >注释：在Java中吗，**数组长度允许为0**。例如结果为数组的方法，结果为空，可以用长度为0的数组表示，**长度为0与null不同**
-`new elementType[0]`
+`new elementType[0]`
 
 #### 3.10.3 数组拷贝
 1. 在Java中，允许将一个数组变量拷贝给另一个数组变量
@@ -982,13 +982,13 @@ luckyNumbers[5] = 12;//now smallPrimes[5] is also 12
 
 2. 如果希望将一个数组的所有值拷贝到一个**新的数组**中，就要使用Arrays类的copyOf方法
 ```java
-int[] copiedLuckyNumbers = Arrays.copyOf(luckyNumbers,luckyNumbers.length);
+int[] copiedLuckyNumbers = Arrays.copyOf(luckyNumbers,luckyNumbers.length);
 ```
 * 第二个参数是新数组的长度。这个方法通常用来增加数组的大小
   * 如果数组元素是数值型，多余的元素将被赋值0；
   * 如果数组元素是布尔型，则将赋值false；
 ```java
-luckyNumbers = Arrays.copyOf(luckyNumbers,2*luckyNumbers.lenght);
+luckyNumbers = Arrays.copyOf(luckyNumbers,2*luckyNumbers.lenght);
 ```
 
 * 相反，如果长度小于原始数组的长度，则只拷贝最前面的数据元素。
@@ -997,7 +997,7 @@ luckyNumbers = Arrays.copyOf(luckyNumbers,2*luckyNumbers.lenght);
 * 每一个Java程序都有一个带String args[]参数的main方法。
 * 这个参数表明main方法将接受一个字符串数组，也就是**命令行参数**。
   * 在启动Java应用程序时可以一次性地向应用程序中传递0~多个参数--命令行参数
-  * 命令行参数使用格式： java ClassName  lisa  "bily"  "Mr Brown“
+  * 命令行参数使用格式： java ClassName  lisa  "bily"  "Mr Brown“
   * 由参数args接收，空格将参数分开，若参数包含空格，用双引号引起来
 ```java
 public class Message
@@ -1034,7 +1034,7 @@ Goodbye, cruel world!
 1. 要想对数值型数组进行排序，可以使用Arrays类中的sort方法(默认升序排序)
 * 这个方法使用了**优化的快速排序算法**，对于大多数集合来说效率比较高
 ```java
-int[] a = new int[1000];
+int[] a = new int[1000];
 ...
 Arrays.sort(a);
 ```
@@ -1045,29 +1045,29 @@ int r = (int)(Math.random() * n)
 ```
 
 ```java
-API java.util.Arrays 1.2
-	static String toString(type[] a) 5.0
+API java.util.Arrays 1.2
+	static String toString(type[] a) 5.0
 		返回包含a中数据元素的字符串，这些数据元素被放在括号内，并用逗号分隔。
 		参数：a，类型为int、long、short、char、byte、boolean、float或double的数组
-	static type copyOf(type[] a, int length) 6
-	static type copyOfRange(type[] a,int start,int end) 6
+	static type copyOf(type[] a, int length) 6
+	static type copyOfRange(type[] a,int start,int end) 6
 		返回与a类型相同的一个数组，其长度为length或者end-start，数组元素为a的值
 		参数：a，类型为int、long、short、char、byte、boolean、float或double的数组
 		start，起始下表，包含这个值
 		end，终止下标（不包含这个值）。这个值可能大于length，这种情况下，结果为0或false；
 		length，拷贝的数据元素长度。如果length值大于a.length，结果为0或false;否则，数组中只有前面length个数据元素的拷贝值。
-	• static int binarySearch(type[] a, type v)
-	• static int binarySearch(type[] a, int start, int end, type v) 6
+	• static int binarySearch(type[] a, type v)
+	• static int binarySearch(type[] a, int start, int end, type v) 6
 		○ 采用二分查找值v。如果查找成功，则返回相应的下标值；否则返回一个负数值r。-r-1是为保持a有序v应插入的位置。
 		○ 参数：a，类型为int、long、short、char、byte、boolean、float或double的有序数组
 			start，起始下标（包含这个值）。
 			end，终止下标（不包含这个值）。
 			v，同a的数据元素类型相同的值。
-	• static void fill(type[] a, type v)
+	• static void fill(type[] a, type v)
 		○ 将数组的所有数据元素值设置为v。
 		○ 参数：a，类型为int、long、short、char、byte、boolean、float或double的数组。
 			v，与a数据元素类型相同的一个值。
-	• static boolean equals(type[] a, type[] b)
+	• static boolean equals(type[] a, type[] b)
 		○ 如果两个数组大小相同，并且下标相同的元素都对应相等，返回true。
 		○ 参数：a、b，类型为int类型为int、long、short、char、byte、boolean、float或double的数组。
 ```
@@ -1089,12 +1089,12 @@ balances = new double[NYEARS][NRATES];
 
 * 若知道数组元素，可以使用简化的形式对多维数组进行初始化：
 ```java
-int[][] magicSquare = 
+int[][] magicSquare = 
 {
-    {16,3,2,13},
-    {5,10,11,8},
-    {9,6,7,12},
-    {4,15,11,1}
+    {16,3,2,13},
+    {5,10,11,8},
+    {9,6,7,12},
+    {4,15,11,1}
 };
 ```
 * 数组初始化后，可以利用两个方括号访问每个元素，例如，balances[i][j]
@@ -1102,12 +1102,12 @@ int[][] magicSquare = 
 >注释：for each循环语句不能自动处理二维数组的每一个元素。它按照行（一维数组）进行处理。
 要想访问二维数组的所有元素，需要使用两个嵌套的循环：
 ```java
-for(double[] row:a)//行
+for(double[] row:a)//行
 {
-    for(double value:row)//列
-    {
-        do something with value
-    }
+    for(double value:row)//列
+    {
+        do something with value
+    }
 }
 ```
 提示：要快速打印一个二维数组的数据元素列表，可以调用：
@@ -1127,9 +1127,9 @@ System.out.println(Arrays.deepToString(a));
 
 2. 由于可以单独地存取数组的某一行，所以可以让两行交换。
 ```java
-double[] temp = balances[i];
-balances[i] = balances[i+1];
-balances[i+1] = temp;
+double[] temp = balances[i];
+balances[i] = balances[i+1];
+balances[i+1] = temp;
 ```
 
 3. 还可以方便地构造出一个“不规则“数组，即数组的每一行有不同的长度。
@@ -1137,22 +1137,22 @@ balances[i+1] = temp;
 ```java
 //要创建一个不规则数组，首先需要分配一个具有所含行数的数组。
 //NMAX指的是数组最大下标，加1，为数组实际长度
-int[][] odds = new int[NMAX+1][];
+int[][] odds = new int[NMAX+1][];
 
 //接下来，分配这些行：
-for(int n = 0;n <= NMAX;n++)
+for(int n = 0;n <= NMAX;n++)
 {
-    odds[n] = new int[n+1];
+    odds[n] = new int[n+1];
 }
 
 //在分配了数组之后，假定没有超出边界，就可以采用通常的方式访问其中的元素。
-for(int n = 0;n < odds.length;n++)
+for(int n = 0;n < odds.length;n++)
 {
-    for(int k = 0;k < odds[n].length;k++)
-    {
-        //compute lotteryOdds
-        ...
-        odds[n][k] = lotteryOdds;
-    }
+    for(int k = 0;k < odds[n].length;k++)
+    {
+        //compute lotteryOdds
+        ...
+        odds[n][k] = lotteryOdds;
+    }
 }
 ```
