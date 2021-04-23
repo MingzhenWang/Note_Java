@@ -120,7 +120,7 @@ API java.lang.Double 1.0
     static int compare(double x, double y) 1.4
         如果x < y 返回一个负数；如果x 和y 相等则返回0; 否则返回一个正数。
 ```
-
+ 
 #### 6.1.2 接口特性
 
 1、接口不是类，不能使用new运算符实例化一个接口
