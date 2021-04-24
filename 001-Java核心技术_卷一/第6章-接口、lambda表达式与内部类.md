@@ -1,3 +1,22 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [第6章 接口、lambda表达式与内部类](#第6章-接口lambda表达式与内部类)
+  - [6.1 接口](#61-接口)
+    - [6.1.1 接口概念](#611-接口概念)
+    - [6.1.2 接口特性](#612-接口特性)
+    - [6.1.3 接口与抽象类](#613-接口与抽象类)
+    - [6.1.4 静态方法](#614-静态方法)
+    - [6.1.5 默认方法](#615-默认方法)
+    - [6.1.6 解决默认方法冲突](#616-解决默认方法冲突)
+  - [6.2 接口示例](#62-接口示例)
+  - [6.3 lambda表达式](#63-lambda表达式)
+  - [6.4 内部类](#64-内部类)
+  - [6.5 代理](#65-代理)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## 第6章 接口、lambda表达式与内部类
 
 
@@ -123,62 +142,90 @@ API java.lang.Double 1.0
  
 #### 6.1.2 接口特性
 
-1、接口不是类，不能使用new运算符实例化一个接口
+**1、接口不是类，不能使用new运算符实例化一个接口**
+```java
 x = new Comparable(. . .); //ERROR
+```
 
-2、不能构造接口的对象，但可以声明接口的变量
+**2、不能构造接口的对象，但可以声明接口的变量**
+```java
 Comparable x; //OK
+```
 
-接口变量必须引用实现了接口的类对象
+>接口变量必须引用实现了接口的类对象
+```java
 x = new Employee(. . .); //OK provided Employee implements Comparable
+```
 
-3、使用instance 检查一个对象是否实现了某个特定的接口
-如同使用instanceof 检查一个对象是否属于某个特定类一样， 也可以使用instance 检查一个对象是否实现了某个特定的接口：
+**3、使用instance 检查一个对象是否实现了某个特定的接口**
+
+* 使用instanceof 检查一个对象是否属于某个特定类一样
+* 也可以使用instance 检查一个对象是否实现了某个特定的接口：
+```java
 if(anObject instanceof Comparable) { . . . }
+```
 
-4、接口可以被扩展
-允许存在 多条 从具有较高通用性的接口 到 较高专用性的接口 的链。
+**4、接口可以被扩展**
+
+>允许存在 多条 从具有较高**通用性的接口** 到 较高**专用性的接口** 的链。
 
 例如， 假设有一个称为Moveable 的接口：
+```java
 public interface Moveable
 {
     void move(double x, double y);
 }
+```
 然后， 可以以它为基础扩展一个叫做Powered 的接口：
+```java
 public interface Powered extends Moveable
 {
     double milesPerGallon();
 }
+```
 
-5、接口不能包含实例域或静态方法，但可以包含常量
+**5、接口不能包含实例域或静态方法，但可以包含常量**
+```java
 public interface Powered extends Moveable
 {
     double milesPerGallon();
     double SPEED_LIMIT = 95;// a public static final constant
 }
+```
+>接口中的方法被自动设置为public，接口中的域也被自动设置为public static final 
 
-接口中的 方法被自动设置为public，接口中的域也被自动设置为public static final 
+>**注释**：可以将接口方法标记为public, 将域标记为public static final。但Java 语言规范却建议不要书写这些多余的关键字。
 
-注释：可以将接口方法标记为public, 将域标记为public static final。但Java 语言规范却建议不要书写这些多余的关键字。
+**6、有些接口只定义了常量， 而没有定义方法**
 
-6、有些接口只定义了常量， 而没有定义方法。
-例如， 在标准库中有一个SwingConstants就是这样一个接口， 其中只包含NORTH、SOUTH 和HORIZONTAL 等常量。任何实现
-SwingConstants 接口的类都自动地继承了这些常量， 并可以在方法中直接地引用NORTH，而不必采用SwingConstants.NORTH 这样的繁琐书写形式。然而，这样应用接口似乎有点偏离了接口概念的初衷， 最好不要这样使用它。
+>例如， 在标准库中有一个SwingConstants就是这样一个接口， 其中只包含NORTH、SOUTH 和HORIZONTAL 等常量。
 
-7、尽管每个类只能够拥有一个超类， 但却可以实现多个接口
+>任何实现SwingConstants 接口的类都自动地继承了这些常量， 并可以在方法中直接地引用NORTH，而不必采用SwingConstants.NORTH 这样的繁琐书写形式。
+
+>然而，这样应用接口似乎有点偏离了接口概念的初衷， 最好不要这样使用它。
+
+**7、尽管每个类只能够拥有一个超类， 但却可以实现多个接口**
+
 这就为定义类的行为提供了极大的灵活性。
 
-例如，Java 程序设计语言有一个非常重要的内置接口， 称为Cloneable ( 将在6.2.3 节中给予详细的讨论)。 
-如果某个类实现了这个Cloneable 接口，Object 类中的clone 方法就可以创建类对象的一个拷贝。如果希望自己设计的类拥有克隆和比较的能力， 只要实现这两个接口就可以了。使用逗号将实现的各个接口分隔开。
+>例如，Java 程序设计语言有一个非常重要的内置接口， 称为Cloneable ( 将在6.2.3 节中给予详细的讨论)。 
+
+>如果某个类实现了这个Cloneable 接口，Object 类中的clone 方法就可以创建类对象的一个拷贝。
+
+>如果希望自己设计的类拥有克隆和比较的能力， 只要实现这两个接口就可以了。使用逗号将实现的各个接口分隔开。
+```java
 class Employee implements Cloneable,Comparable
+```
 
 #### 6.1.3 接口与抽象类
 
 为什么Java 程序设计语言还要不辞辛苦地引入接口概念？ 为什么不将Comparable 直接设计成如下所示的抽象类？
+```java
 abstract class Comparable // why not?
 {
     public abstract int compareTo(Object other);
 }
+```
 然后， Employee 类再直接扩展这个抽象类， 并提供compareTo 方法的实现：
 class Employee extends Comparable // why not?
 {
