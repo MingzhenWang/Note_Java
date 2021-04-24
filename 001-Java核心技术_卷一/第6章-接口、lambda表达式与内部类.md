@@ -227,21 +227,27 @@ abstract class Comparable // why not?
 }
 ```
 然后， Employee 类再直接扩展这个抽象类， 并提供compareTo 方法的实现：
+```java
 class Employee extends Comparable // why not?
 {
     public int compareTo(Object other) { . . . }
 }
+```
 
-因为使用抽象类，每个类只能扩展于一个类
+**因为使用抽象类，每个类只能扩展于一个类**
+```java
 class Employee extends Person, Comparable // Error
-
-但是每个类可以实现多个接口
+```
+**每个类可以实现多个接口**
+```java
 class Employee extends Person implements Comparable // OK
+```
 
+>注释：有些程序设计语言允许一个类有多个超类， 例如C++。我们将此特性称为**多重继承( multiple inheritance)**。 
 
-注释：有些程序设计语言允许一个类有多个超类， 例如C++。我们将此特性称为多重继承( multiple inheritance)。 
-而Java 的设计者选择了不支持多继承，其主要原因是多继承会让语言本身变得非常复杂（如同C++)，效率也会降低（如同Eiffel)
-实际上， 接口可以提供多重继承的大多数好处，同时还能避免多重继承的复杂性和低效性。
+>**而Java 的设计者选择了不支持多继承**，其主要原因是多继承会让语言本身变得非常复杂（如同C++)，效率也会降低（如同Eiffel)
+
+**接口可以提供多重继承的大多数好处，同时还能避免多重继承的复杂性和低效性**
 
 #### 6.1.4 静态方法
 
