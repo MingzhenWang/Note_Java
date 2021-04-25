@@ -368,14 +368,11 @@ public class Bag implements Collection
 * 接口冲突
   * 如果一个超接口提供了一个默认方法， 另一个接口提供了一个同名而且参数类型（不论是否是默认参数）相同的方法， 必须在实现时覆盖这个方法来解决冲突。
 
-下面看第二个规则
-
-**超类优先原则**
-
->“类优先” 规则可以确保与Java SE 7 的兼容性。如果为一个接口增加默认方法，这对于有这个默认方法之前能正常工作的代码不会有任何影响。
 
 
-**如果有一个类同时实现了这两个接口，接口中都包含getName方法，如何解决？**
+
+
+**1、如果有一个类同时实现了这两个接口，接口中都包含getName方法，如何解决？**
 ```java
 class Student implements Person, Named
 {
@@ -393,7 +390,7 @@ class Student implements Person, Named
 }
 ```
 
->假设Named接口没有为getName提供默认实现，String类不会从Person接口继承默认方法
+**2、假设Named接口没有为getName提供默认实现，String类不会从Person接口继承默认方法**
 ```java
 interface Named
 {
@@ -404,10 +401,216 @@ interface Named
 
 >如果至少有一个接口提供了一个实现， 编译器就会报告错误， 而程序员就必须解决这个二义性。
 
->**注释**：如果两个接口都没有为共享方法提供默认实现， 那么就与Java SE 8 之前的情况一样，这里不存在冲突。实现类可以有两个选择：实现这个方法， 或者干脆不实现。如果是后一种情况， 这个类本身就是抽象的。
+**3、如果两个接口都没有为共享方法提供默认实现， 那么就与Java SE 8 之前的情况一样，这里不存在冲突**
 
+>实现类可以有两个选择：实现这个方法， 或者干脆不实现。如果是后一种情况， 这个类本身就是抽象的。
+
+**4、一个类扩展了一个超类，同时实现了一个接口，并且从超类和接口继承了相同的方法**
+
+**只会考虑超类方法，接口所有的默认方法都会被忽略**
+
+```java
+class Student extends Person implements Named{...}
+```
+
+>Student从Person继承了getName方法，Named接口是否为getName提供了默认实现并没有什么区别
+
+**超类优先原则**
+
+>“类优先” 规则可以确保与Java SE 7 的兼容性。如果为一个接口增加默认方法，这对于有这个默认方法之前能正常工作的代码不会有任何影响。
 
 ### 6.2 接口示例
+
+接下来的3节中，将给出接口的另外一些示例，可以从中了解接口的实际使用。
+
+
+
+6.2.1 接口与回调
+
+回调（callback) 是一种常见的程序设计模式。在这种模式中， 可以指出某个特定事件发生时应该采取的动作。
+例如，可以指出在按下鼠标或选择某个菜单项时应该采取什么行动。然而， 由于至此还没有介绍如何实现用户接口， 所以只能讨论一些与上述操作类似，但比较简单的情况。
+
+在java.swing 包中有一个Timer 类，可以使用它在到达给定的时间间隔时发出通告。例如，假如程序中有一个时钟， 就可以请求每秒钟获得一个通告， 以便更新时钟的表盘。
+在构造定时器时，需要设置一个时间间隔， 并告之定时器，当到达时间间隔时需要做些什么操作。
+
+如何告之定时器做什么呢？ 在很多程序设计语言中，可以提供一个函数名， 定时器周期性地调用它。但是， 在Java 标准类库中的类采用的是面向对象方法。它将某个类的对象传递给定时器， 然后，定时器调用这个对象的方法。由于对象可以携带一些附加的信息， 所以传递一个对象比传递一个函数要灵活得多。
+
+当然， 定时器需要知道调用哪一个方法，并要求传递的对象所属的类实现了java.awt.event 包的ActionListener 接口。下面是这个接口：
+public interface ActionListener
+{
+    void actionPerformed(ActionEvent event);
+}
+
+当到达指定的时间间隔时，定时器就调用actionPerformed 方法。
+
+假设希望每隔10 秒钟打印一条信息“ At the tone, the time is . . .”， 然后响一声， 就应该定义一个实现ActionListener 接口的类， 然后将需要执行的语句放在actionPerformed 方法中。
+class TimePrinter implements ActionListener
+{
+    public void actionPerformed(ActionEvent event)
+    {
+        System.out.println("At the tone, the time is " + new Date());
+        Toolkit.getDefaultToolkit().beep();
+    }
+}
+
+需要注意actionPerformed 方法的ActionEvent 参数。这个参数提供了事件的相关信息，
+例如， 产生这个事件的源对象。有关这方面的详细内容请参看第8 章。在这个程序中， 事件的详细信息并不重要， 因此，可以放心地忽略这个参数。
+
+接下来， 构造这个类的一个对象， 并将它传递给Timer 构造器。
+ActionListener listener = new TimePrinter();
+Timer t = new Timer(10000,listener);
+
+Timer 构造器的第一个参数是发出通告的时间间隔， 它的单位是毫秒。这里希望每隔10秒钟通告一次。第二个参数是监听器对象。
+最后， 启动定时器：
+t.start();
+
+
+API javax.swing.JOptionPane 1.2
+	• static void showMessageDialog(Component parent, Object message)
+		○ 显示一个包含一条消息和OK 按钮的对话框。这个对话框将位于其parent 组件的中央。如果parent 为mill , 对话框将显示在屏幕的中央。
+
+API javax.swing.Timer 1.2
+	• Timer(int interval , ActionListener listener)
+		○ 构造一个定时器， 每隔interval 毫秒通告listener—次。
+	• void start()
+		○ 启动定时器，一旦启动成功， 定时器将调用监听器的actionPerformed。
+	• void stop()
+		○ 停止定时器。一旦停止成功， 定时器将不再调用监听器的actionPerformed。
+
+API java.awt.Toolkit 1.0
+	• static Toolkit getDefaultToolkit()
+		○ 获得默认的工具箱。工具箱包含有关GUI 环境的信息。
+	• void beep()
+		○ 发出一声铃响。
+
+
+
+6.2.2 Comparator接口
+
+在6.1.1节中，我们确定了一个对象数组排序方法：前提是这些对象是实现了Comparable接口的类的实例。
+
+例如， 可以对一个字符串数组排序，因为String 类实现了Comparable<String>，而且 String.compareTo 方法可以按字典顺序比较字符串。
+
+问题：希望按长度递增的顺序对字符串进行排序：
+
+不可能让String类用两种不同的方式实现compareTo方法，而且，我们也不应该修改String类。
+
+解决方法：Arrays.sort方法还有第二个版本，有一个数组和一个比较器（comparator）作为参数，比较器是实现了Comparator接口的类的实例
+public interface Comparator<T>
+{
+    int compare(T first, T second);
+}
+
+要按长度比较字符串，可以如下定义一个实现Comparator<String>的类：
+class LengthComparator implements Comparator<String>
+{
+    public int compare(String first, String second)
+    {
+        return first.length() - second.length();
+    }
+}
+
+具体完成比较时，需要建立一个实例：
+Comparator<String> comp = new LengthComparator();
+if(comp.compare(words[i], words[j]) > 0) ...
+
+注释：尽管LengthComparator对象没有状态，不过还是需要建立这个对象的一个实例，我们需要这个实例来调用compare方法--它不是一个静态的方法。
+
+要对一个数组排序，需要为Arrays.sort 方法传入一个LengthComparator 对象：
+String[] friends = {"Peter","Paul","Mary"};
+Arrays.sort(friend, new LengthComparator());
+
+利用lambda表达式可以更容易地使用Comparator。
+
+6.2.3 对象克隆
+
+Cloneable接口：指示一个类提供了一个安全的clone方法。（克隆不太常见，且有关的细节技术性很强，暂时只是了解）
+
+为一个包含对象引用的变量建立副本时，原变量和副本都是同一个对象的引用，任何变量改变都会影响另一个变量。
+Employee original = new Employee("John Public",50000);
+Employee copy = original;
+copy.raiseSalary(10);//oops--also changed original
+
+如果希望copy是一个新对象，它的初始状态与original相同，但是之后它们各自会有不同的状态，这种情况下可以使用clone方法
+Employee copy = original.clone();
+copy.raiseSalary(10);//OK--original unchanged
+
+
+
+clone方法是Object的一个protected方法，说明我们的代码不能直接调用这个方法。只有Employee类可以克隆Employee对象。
+限制的原因：
+如果对象中的所有数据域都是数值或其他基本类型，拷贝这些域没有任何问题，但是如果对象包含子对象的引用，拷贝域就会得到相同子对象的另一个引用，这样一来， 原对象和克隆的对象仍然会共享一些信息。
+
+默认的克隆操作是“浅拷贝”，并没有克隆对象中引用的其他对象。
+
+
+
+浅拷贝的影响：
+	• 如果原对象与浅克隆对象共享的子对象是不可变的，那么这种共享就是安全的。比如子对象属于不可变的类（String）
+	• 或者在对象的生命周期中，子对象一直包含不变的常量，没有更改器方法会改变它，也没有方法会生成它的引用，这种情况下也是安全的。
+
+深拷贝
+但是，通常子对象都是可变的，必须重新定义clone方法来建立一个深拷贝，同时克隆出所有子对象。
+
+对于每一个类，需要确定：
+	1. 默认的clone方法是否满足要求
+	2. 是否可以在可变的子对象上调用clone来修补
+	3. 是否不该使用clone
+实际上，第3个选项是默认选项，如果选择第1或第2项，类必须：
+	• 实现Cloneable接口
+	• 重新定义clone方法，并执行public访问修饰符
+
+注释：Object类中的clone方法声明为protected，所以我们的代码不能直接调用anObject.clone()。
+子类可以访问受保护的方法，所有的类都是Object的子类。
+但是，子类只能调用受保护的clone方法来克隆它自己的对象。必须重新定义clone为public才能允许所有方法克隆对象。
+
+
+Cloneable接口的出现与接口的正常使用没有关系，它没有执行clone方法，这个方法是从Object中继承的。
+这个接口只是作为一个标记，指示类设计者了解克隆过程。
+如果一个对象请求克隆，但没有实现这个接口，就会生成一个受查异常。
+
+注释：Cloneable接口是Java提供的一组标记接口（tagging interface）之一。
+Comparable等接口的通常用途是确保一个类实现一个或一组特定的方法。
+标记接口不包含任何方法；它唯一的作用就是允许在类型查询中使用instanceof
+if (obj instanceof Cloneable) . . .
+
+建立不要在自己的程序中使用标记接口，为什么？
+
+即使clone的默认（浅拷贝）实现能够满足要求，还是需要实现Cloneable接口，将clone重新定义为public，再调用super.clone()。
+例如：
+class Employee implements Cloneable
+{
+    //raise visibility level to public, change return type
+    public Employee clone() throws CloneNotSupportedException
+    {
+        return (Employee) super.clone();
+    }
+}
+
+注释： 在Java SE 1.4 之前，clone 方法的返回类型总是Object，而现在可以为你的clone方法指定正确的返回类型。这是协变返回类型的一个例子（见第5 章）。
+
+与Object.clone 提供的浅拷贝相比，前面看到的clone方法并没有为它增加任何功能。这里只是让这个方法是公有的。要建立深拷贝， 还需要做更多工作，克隆对象中可变的实例域。
+
+如下是创建深拷贝的clone方法的一个例子：
+class Employee implements Cloneable
+{
+    public Employee clone() throws CloneNotSupportedException
+    {
+        //call Object.clone()
+        Employee cloned = (Employee)super.clone();
+        //clone mutable = (Date)hireDay.clone();
+        cloned.hireDay = (Date)hireDay.clone();
+        return cloned;
+    }
+}
+
+如果在一个对象上调用clone, 但这个对象的类并没有实现Cloneable 接口，Object 类的clone 方法就会拋出一个CloneNotSupportedException。当然，Employee 和Date 类实现了Cloneable 接口， 所以不会抛出这个异常。不过， 编译器并不了解这一点，因此， 我们声明了这个异常：
+public Employee clone() throws CloneNotSupportedException
+
+注释：所有数组类型都有一个public的clone方法，而非protected。可以用这个方法建立一个新数组，包含原数组所有元素的副本。
+int[] luckyNumbers = {2,3,5,7,11,13};
+int[] cloned = luckyNumbers.clone();
+cloned[5] = 12;//doesn't change luckyNumbers[5]
 
 
 ### 6.3 lambda表达式
