@@ -496,19 +496,22 @@ API java.awt.Toolkit 1.0
 
 在6.1.1节中，我们确定了一个对象数组排序方法：前提是这些对象是实现了Comparable接口的类的实例。
 
-例如， 可以对一个字符串数组排序，因为String 类实现了Comparable<String>，而且 String.compareTo 方法可以按字典顺序比较字符串。
+>例如， 可以对一个字符串数组排序，因为String 类实现了Comparable<String>，而且 String.compareTo 方法可以按字典顺序比较字符串。
 
-问题：希望按长度递增的顺序对字符串进行排序：
+**问题：希望按长度递增的顺序对字符串进行排序**：
 
-不可能让String类用两种不同的方式实现compareTo方法，而且，我们也不应该修改String类。
+>不可能让String类用两种不同的方式实现compareTo方法，而且，我们也不应该修改String类。
 
-解决方法：Arrays.sort方法还有第二个版本，有一个数组和一个比较器（comparator）作为参数，比较器是实现了Comparator接口的类的实例
+**解决方法**：
+* Arrays.sort方法还有第二个版本，有一个数组和一个比较器（comparator）作为参数，比较器是实现了Comparator接口的类的实例
+```java
 public interface Comparator<T>
 {
     int compare(T first, T second);
 }
-
-要按长度比较字符串，可以如下定义一个实现Comparator<String>的类：
+```
+>要按长度比较字符串，可以如下定义一个实现Comparator<String>的类：
+```java
 class LengthComparator implements Comparator<String>
 {
     public int compare(String first, String second)
@@ -516,17 +519,20 @@ class LengthComparator implements Comparator<String>
         return first.length() - second.length();
     }
 }
-
+```
 具体完成比较时，需要建立一个实例：
+```java
 Comparator<String> comp = new LengthComparator();
 if(comp.compare(words[i], words[j]) > 0) ...
+```
 
-注释：尽管LengthComparator对象没有状态，不过还是需要建立这个对象的一个实例，我们需要这个实例来调用compare方法--它不是一个静态的方法。
+>**注释**：尽管LengthComparator对象没有状态，不过还是需要建立这个对象的一个实例，我们需要这个实例来调用compare方法--它不是一个静态的方法。
 
 要对一个数组排序，需要为Arrays.sort 方法传入一个LengthComparator 对象：
+```java
 String[] friends = {"Peter","Paul","Mary"};
 Arrays.sort(friend, new LengthComparator());
-
+```
 利用lambda表达式可以更容易地使用Comparator。
 
 #### 6.2.3 对象克隆
